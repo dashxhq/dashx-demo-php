@@ -25,7 +25,7 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->safe()->password),
         ]);
 
-        // TODO: dx.identify, dx.track
+        // TODO: dx.identify $user->id, dx.track User Registered
 
         return response($user, 201);
     }

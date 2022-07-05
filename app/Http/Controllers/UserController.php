@@ -31,6 +31,8 @@ class UserController extends Controller
         $user->fill($request->safe()->only(['password', 'last_name', 'email']));
         $user->save();
 
+        // TODO: hit dx.identify $user->id
+
         return response()->json($user->fresh());
     }
 }

@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Tymon\JWTAuth\Providers\JWT\Namshi;
+use Illuminate\Support\Facades\Hash;
+
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\ResetPasswordRequest;
 use App\Models\User;
-use Illuminate\Support\Facades\Hash;
+use Exception;
 
 class ResetPasswordController extends Controller
 {
@@ -13,14 +16,26 @@ class ResetPasswordController extends Controller
      * Handle the incoming request.
      *
      * @param  App\Http\Requests\Auth\ResetPasswordRequest  $request
+     * @param  Tymon\JWTAuth\Providers\JWT\Namshi  $jwt
      * @return \Illuminate\Http\Response
      */
-    public function __invoke(ResetPasswordRequest $request)
+    public function __invoke(ResetPasswordRequest $request, Namshi $jwt)
     {
-        // validate the jwt token $request->safe()->token, sent from forgot password
-        // this jwt payload should have email
+        try {
+            $payload = $jwt->decode($request->safe()->token);
+        }catch(Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage()
+            ], 403);
+        }
 
-        $user = User::findOrFail(auth()->user()->id);
+        if(empty($payload['email'])) {
+            return response()->json([
+                'message' => 'Unauthorized!'
+            ], 403);
+        }
+
+        $user = User::where('email', $payload['email'])->firstOrFail();
         $user->fill([
             'password' => Hash::make($request->safe()->password),
         ]);
