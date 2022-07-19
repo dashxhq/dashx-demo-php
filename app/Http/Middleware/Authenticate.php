@@ -19,9 +19,9 @@ class Authenticate extends Middleware
     protected function unauthenticated($request, array $guards)
     {
         $redirectTo = null;
-        if(!$request->is('api/*')) {
-            $redirectTo = $this->redirectTo($request);
-        }
+        // if(!$request->is('api/*')) {
+        //     $redirectTo = $this->redirectTo($request);
+        // }
 
         throw new AuthenticationException(
             'Unauthenticated.', $guards, $redirectTo
