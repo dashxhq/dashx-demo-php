@@ -23,12 +23,15 @@ class RedirectIfAuthenticated
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
-                if($request->is('api/*')) {
-                    return response()->json([
-                        'message' => 'Unauthorized!'
-                    ], 403);
-                }
-                return redirect(RouteServiceProvider::HOME);
+                return response()->json([
+                    'message' => 'Unauthorized!'
+                ], 403);
+                // if($request->is('api/*')) {
+                //     return response()->json([
+                //         'message' => 'Unauthorized!'
+                //     ], 403);
+                // }
+                // return redirect(RouteServiceProvider::HOME);
             }
         }
 
