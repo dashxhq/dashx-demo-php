@@ -40,7 +40,7 @@ Route::group(['as' => 'api.'], function() {
         Route::post('/logout', [AuthenticationController::class, 'logout'])->name('logout');
         Route::post('/refresh-token', [AuthenticationController::class, 'refresh'])->name('refresh-token');
 
-        Route::post('/profile', [UserController::class, 'show'])->name('profile');
-        Route::post('/update-profile', [UserController::class, 'update'])->name('update-profile');
+        Route::get('/profile', [UserController::class, 'show'])->name('profile');
+        Route::patch('/update-profile', [UserController::class, 'update'])->name('update-profile');
     });
 });
