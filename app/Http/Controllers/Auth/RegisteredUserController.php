@@ -22,7 +22,7 @@ class RegisteredUserController extends Controller
             'first_name' => $request->safe()->first_name,
             'last_name' => $request->safe()->last_name,
             'email' => $request->safe()->email,
-            'password' => Hash::make($request->safe()->password),
+            'encrypted_password' => Hash::make($request->safe()->password),
         ]);
 
         // TODO: dx.identify $user->id, dx.track User Registered
