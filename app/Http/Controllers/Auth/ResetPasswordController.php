@@ -37,7 +37,7 @@ class ResetPasswordController extends Controller
 
         $user = User::where('email', $payload['email'])->firstOrFail();
         $user->fill([
-            'password' => Hash::make($request->safe()->password),
+            'encrypted_password' => Hash::make($request->safe()->password),
         ]);
         $user->save();
 

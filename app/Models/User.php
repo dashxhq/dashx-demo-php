@@ -19,8 +19,9 @@ class User extends Authenticatable implements JWTSubject
     protected $fillable = [
         'first_name',
         'last_name',
+        'avatar',
         'email',
-        'password',
+        'encrypted_password',
     ];
 
     /**
@@ -29,9 +30,7 @@ class User extends Authenticatable implements JWTSubject
      * @var array<int, string>
      */
     protected $hidden = [
-        'password',
-        'remember_token',
-        'email_verified_at',
+        'encrypted_password',
     ];
 
     /**
@@ -40,7 +39,7 @@ class User extends Authenticatable implements JWTSubject
      * @var array<string, string>
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',
+        'avatar' => 'array',
     ];
 
     /**
@@ -61,5 +60,15 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
         return [];
+    }
+
+    /**
+     * Get the password for the user.
+     *
+     * @return string
+     */
+    public function getAuthPassword()
+    {
+        return $this->encrypted_password;
     }
 }
