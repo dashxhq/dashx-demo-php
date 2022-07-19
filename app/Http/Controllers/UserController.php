@@ -28,7 +28,7 @@ class UserController extends Controller
     public function update(UserUpdateRequest $request)
     {
         $user = User::findOrFail(auth()->user()->id);
-        $user->fill($request->safe()->only(['password', 'last_name', 'email']));
+        $user->fill($request->safe()->only(['first_name', 'last_name', 'email', 'avatar']));
         $user->save();
 
         // TODO: hit dx.identify $user->id
