@@ -71,4 +71,24 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->encrypted_password;
     }
+
+    /**
+     * Get all of the posts for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function posts()
+    {
+        return $this->hasMany(Post::class, 'user_id', 'id');
+    }
+
+    /**
+     * The bookmarks that belong to the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function bookmarks()
+    {
+        return $this->belongsToMany(Post::class, 'bookmarks', 'user_id', 'post_id')->withPivot(['id', 'bookmarked_at']);
+    }
 }
