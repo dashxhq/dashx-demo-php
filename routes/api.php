@@ -9,6 +9,7 @@ use App\Http\Controllers\Auth\AuthenticationController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\PostController;
 
 
 /*
@@ -42,5 +43,10 @@ Route::group(['as' => 'api.'], function() {
 
         Route::get('/profile', [UserController::class, 'show'])->name('profile');
         Route::patch('/update-profile', [UserController::class, 'update'])->name('update-profile');
+
+        Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
+        Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
+        Route::put('/posts/{post}/toggle-bookmark', [PostController::class, 'toggleBookmark'])->name('posts.toggleBookmark');
+        Route::get('/posts/bookmarked', [PostController::class, 'getBookmarkedPosts'])->name('posts.bookmarked');
     });
 });
