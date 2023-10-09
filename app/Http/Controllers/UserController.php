@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ContactRequest;
 use Illuminate\Http\Request;
 
 use App\Http\Requests\UserUpdateRequest;
@@ -34,5 +35,17 @@ class UserController extends Controller
         // TODO: hit dx.identify $user->id
 
         return response()->json($user->fresh());
+    }
+
+    /**
+     *
+     */
+    public function contact(ContactRequest $request)
+    {
+        // TODO: hit dx.deliver email
+
+        return response()->json([
+            'message' => 'Thanks for reaching out! We will get back to you soon.'
+        ]);
     }
 }
