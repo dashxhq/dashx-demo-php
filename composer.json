@@ -4,13 +4,20 @@
     "description": "The Laravel Framework.",
     "keywords": ["framework", "laravel"],
     "license": "MIT",
+    "repositories": [
+        {
+            "url": "https://github.com/dashxhq/dashx-php.git",
+            "type": "vcs"
+        }
+    ],
     "require": {
         "php": "^8.0.2",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^9.19",
         "laravel/sanctum": "^2.14.1",
         "laravel/tinker": "^2.7",
-        "tymon/jwt-auth": "1.0.x-dev"
+        "tymon/jwt-auth": "1.0.x-dev",
+        "dashx/php": "dev-stable-uuid-package"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
