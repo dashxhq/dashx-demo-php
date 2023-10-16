@@ -17,7 +17,7 @@
         "laravel/sanctum": "^2.14.1",
         "laravel/tinker": "^2.7",
         "tymon/jwt-auth": "1.0.x-dev",
-        "dashx/php": "dev-stable-uuid-package"
+        "dashx/php": "dev-main"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

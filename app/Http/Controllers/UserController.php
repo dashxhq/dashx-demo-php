@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ContactRequest;
-use Illuminate\Http\Request;
-
 use App\Http\Requests\UserUpdateRequest;
 use App\Models\User;
 
@@ -40,7 +38,10 @@ class UserController extends Controller
     }
 
     /**
+     * Send email notification using DashX SDK.
      *
+     * @param  App\Http\Requests\ContactRequest $request
+     * @return \Illuminate\Http\Response
      */
     public function contact(ContactRequest $request)
     {
