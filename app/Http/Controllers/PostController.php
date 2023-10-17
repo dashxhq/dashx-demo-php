@@ -72,14 +72,17 @@ class PostController extends Controller
             DashX::track(
                 'Post Bookmarked',
                 auth()->user()->id,
-                $bookmark->toArray()
+                $bookmark->pivot->toArray()
             );
         } else {
             $post->bookmarks()->attach(auth()->user()->id);
+
+            $bookmark = $post->bookmarks()->where('user_id', auth()->user()->id)->first();
+
             DashX::track(
                 'Post Unbookmarked',
                 auth()->user()->id,
-                $bookmark->toArray()
+                $bookmark->pivot->toArray()
             );
         }
 
