@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Post;
 use Illuminate\Http\Request;
+
+use App\Models\Post;
+
+use DashX;
 
 class PostController extends Controller
 {
@@ -66,13 +69,24 @@ class PostController extends Controller
 
         if($bookmark) {
             $post->bookmarks()->detach(auth()->user()->id);
-            // TODO: dx.track('Post Unbookmarked', req.user.id, bookmark);
+            DashX::track(
+                'Post Bookmarked',
+                auth()->user()->id,
+                $bookmark->pivot->toArray()
+            );
         } else {
-            // TODO: dx.track('Post Bookmarked', req.user.id, bookmark)
             $post->bookmarks()->attach(auth()->user()->id);
+
+            $bookmark = $post->bookmarks()->where('user_id', auth()->user()->id)->first();
+
+            DashX::track(
+                'Post Unbookmarked',
+                auth()->user()->id,
+                $bookmark->pivot->toArray()
+            );
         }
 
-        return response('');
+        return response()->json([]);
     }
 
     /**

@@ -7,6 +7,8 @@ use Tymon\JWTAuth\Providers\JWT\Namshi;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\ForgotPasswordRequest;
 
+use DashX;
+
 class ForgotPasswordController extends Controller
 {
     /**
@@ -22,12 +24,15 @@ class ForgotPasswordController extends Controller
             'email' => $request->safe()->email
         ]);
 
-        // TODO: hit dx.deliver email/forgot-password
+        DashX::deliver('email/forgot-password', [
+            'to' => $request->safe()->email,
+            'data' => [
+                'token' => $token
+            ]
+        ]);
 
         return response()->json([
-            'message' => 'Password reset email sent.',
-            // TODO: remove, using this for testing
-            'token' => $token
+            'message' => 'Check your inbox for a link to reset your password.',
         ]);
     }
 }

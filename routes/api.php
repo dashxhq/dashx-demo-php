@@ -3,7 +3,6 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\ContactController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Auth\AuthenticationController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
@@ -28,7 +27,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::group(['as' => 'api.'], function() {
-    Route::post('/contact', ContactController::class)->name('contact');
+    Route::post('/contact', [UserController::class, 'contact'])->name('contact');
 
     Route::group(['middleware' => 'guest:api'], function() {
         Route::post('/register', RegisteredUserController::class)->name('register');
