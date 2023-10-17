@@ -8,6 +8,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\RegisteredUserRequest;
 use App\Models\User;
 
+use DashX;
+
 class RegisteredUserController extends Controller
 {
     /**
@@ -25,7 +27,14 @@ class RegisteredUserController extends Controller
             'encrypted_password' => Hash::make($request->safe()->password),
         ]);
 
-        // TODO: dx.identify $user->id, dx.track User Registered
+        $user_data = [
+            'firstName' => $user->first_name,
+            'lastName' => $user->last_name,
+            'email' => $user->email,
+        ];
+
+        DashX::identify($user->id, $user_data);
+        DashX::track('User Registered', $user->id, $user_data);
 
         return response($user, 201);
     }

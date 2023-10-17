@@ -32,9 +32,21 @@ class UserController extends Controller
         $user->fill($request->safe()->only(['first_name', 'last_name', 'email', 'avatar']));
         $user->save();
 
-        // TODO: hit dx.identify $user->id
+        DashX::identify(
+            $user->id,
+            [
+                'firstName' => $user->first_name,
+                'lastName' => $user->last_name,
+                'email' => $user->email,
+            ]
+        );
 
-        return response()->json($user->fresh());
+        return response()->json(
+            [
+                'message' => 'Profile updated.',
+                'user' => $user->fresh()
+            ]
+        );
     }
 
     /**
